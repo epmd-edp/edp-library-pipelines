@@ -60,6 +60,7 @@ def call() {
     }
 
     node(context.codebase.config.jenkinsSlave.toLowerCase()) {
+        try {
         context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
         context.workDir.deleteDir()
 
@@ -78,6 +79,7 @@ def call() {
             } else {
                 context.job.runStage(stage.name, context)
             }
+        }
         }
     }
 }
