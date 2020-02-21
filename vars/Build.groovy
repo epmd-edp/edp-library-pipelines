@@ -60,23 +60,41 @@ def call() {
     }
 
     node(context.codebase.config.jenkinsSlave.toLowerCase()) {
-        context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
-        context.workDir.deleteDir()
+        try {
+            context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
+            context.workDir.deleteDir()
 
-        context.buildTool = new BuildToolFactory().getBuildToolImpl(context.codebase.config.build_tool, this, context.nexus)
-        context.buildTool.init()
+            context.buildTool = new BuildToolFactory().getBuildToolImpl(context.codebase.config.build_tool, this, context.nexus)
+            context.buildTool.init()
 
-        context.job.stages.each() { stage ->
-            if (stage instanceof ArrayList) {
-                def parallelStages = [:]
-                stage.each() { parallelStage ->
-                    parallelStages["${parallelStage.name}"] = {
-                        context.job.runStage(parallelStage.name, context)
+            context.job.stages.each() { stage ->
+                if (stage instanceof ArrayList) {
+                    def parallelStages = [:]
+                    stage.each() { parallelStage ->
+                        parallelStages["${parallelStage.name}"] = {
+                            context.job.runStage(parallelStage.name, context)
+                        }
                     }
+                    parallel parallelStages
+                } else {
+                    context.job.runStage(stage.name, context)
                 }
-                parallel parallelStages
-            } else {
-                context.job.runStage(stage.name, context)
+            }
+
+        } finally {
+            def codebaseBranchesName = "codebasebranches.${context.job.crApiVersion}.edp.epam.com"
+
+            if (currentBuild.result == "SUCCESS") {
+                def lastSuccessBuild = context.platform.getJsonPathValue(codebaseBranchesName, context.codebase.name, ".status.lastSuccessBuild")
+                if (!lastSuccessBuild) {
+                    successBuildCount = 1
+                } else {
+                    successBuildCount = ++lastSuccessBuild
+                }
+
+                sh """
+                    kubectl patch codebasebranches.v2.edp.epam.com ${context.codebase.config.name}-${context.git.branch} --type=merge -p '{\"status\": {\"lastSuccessBuild\": "${successBuildCount}"}}'
+                """
             }
         }
     }
