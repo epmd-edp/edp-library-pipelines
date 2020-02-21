@@ -60,23 +60,34 @@ def call() {
     }
 
     node(context.codebase.config.jenkinsSlave.toLowerCase()) {
-        context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
-        context.workDir.deleteDir()
+        try {
+            context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
+            context.workDir.deleteDir()
 
-        context.buildTool = new BuildToolFactory().getBuildToolImpl(context.codebase.config.build_tool, this, context.nexus)
-        context.buildTool.init()
+            context.buildTool = new BuildToolFactory().getBuildToolImpl(context.codebase.config.build_tool, this, context.nexus)
+            context.buildTool.init()
 
-        context.job.stages.each() { stage ->
-            if (stage instanceof ArrayList) {
-                def parallelStages = [:]
-                stage.each() { parallelStage ->
-                    parallelStages["${parallelStage.name}"] = {
-                        context.job.runStage(parallelStage.name, context)
+            context.job.stages.each() { stage ->
+                if (stage instanceof ArrayList) {
+                    def parallelStages = [:]
+                    stage.each() { parallelStage ->
+                        parallelStages["${parallelStage.name}"] = {
+                            context.job.runStage(parallelStage.name, context)
+                        }
                     }
+                    parallel parallelStages
+                } else {
+                    context.job.runStage(stage.name, context)
                 }
-                parallel parallelStages
-            } else {
-                context.job.runStage(stage.name, context)
+            }
+
+        } finally {
+            if (currentBuild.currentResult == 'SUCCESS') {
+                def codebaseBranchesName = "codebasebranches.${context.job.crApiVersion}.edp.epam.com"
+                def lastSuccessfulBuild = context.platform.getJsonPathValue(codebaseBranchesName, "${context.codebase.config.name}-${context.git.branch}", ".spec.build")
+                sh """
+                    kubectl patch ${codebaseBranchesName} ${context.codebase.config.name}-${context.git.branch} --type=merge -p '{\"spec\": {\"lastSuccessfulBuild\": "${lastSuccessfulBuild}"}}'
+                """
             }
         }
     }
