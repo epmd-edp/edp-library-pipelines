@@ -72,7 +72,7 @@ class Kubernetes implements Platform {
     }
 
     def apply(fileName) {
-        script.sh(script: "oc apply -f ${fileName}")
+        script.sh(script: "kubectl apply -f ${fileName}")
     }
 
     def deleteObject(objectType, objectName, force = false) {
