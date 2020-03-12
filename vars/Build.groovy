@@ -88,7 +88,9 @@ def call() {
                 def codebaseBranchesName = "codebasebranches.${context.job.crApiVersion}.edp.epam.com"
                 def lastSuccessfulBuild = context.platform.getJsonPathValue(codebaseBranchesName, "${context.codebase.config.name}-${context.git.branch}", ".spec.build")
                 sh """
+                    kubectl get codebasebranches.v2.edp.epam.com ${context.codebase.config.name}-${context.git.branch} -o yaml
                     kubectl patch ${codebaseBranchesName} ${context.codebase.config.name}-${context.git.branch} --type=merge -p '{\"status\": {\"lastSuccessfulBuild\": "${lastSuccessfulBuild}"}}'
+                    kubectl get codebasebranches.v2.edp.epam.com ${context.codebase.config.name}-${context.git.branch} -o yaml
                 """
             }
         }
