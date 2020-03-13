@@ -1,0 +1,7 @@
+Verified+1: CI Jenkins
+Code-Review+2: Pavlo Yemelianov <pavlo_yemelianov@epam.com>
+Submitted-by: Pavlo Yemelianov <pavlo_yemelianov@epam.com>
+Submitted-at: Fri, 13 Mar 2020 15:50:21 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/509
+Project: edp-library-pipelines
+Branch: refs/heads/master
