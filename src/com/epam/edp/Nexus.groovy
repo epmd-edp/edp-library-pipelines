@@ -43,6 +43,8 @@ class Nexus {
         this.baseUrl = job.getParameterValue("BASE_URL")
         this.repositoriesUrl = "${this.baseUrl}/repository"
         this.restUrl = "${this.baseUrl}/service/rest"
+        println("[JENKINS][DEBUG] repositoriesUrl - ${repositoriesUrl}")
+        println("[JENKINS][DEBUG] repositoriesUrl - ${restUrl}")
 //        this.host = job.getParameterValue("NEXUS_HOST", "nexus")
 //        this.port = job.getParameterValue("NEXUS_HTTP_PORT", "8081")
 //        basePath = platform.getJsonPathValue("nexus", "nexus", ".spec.basePath")
