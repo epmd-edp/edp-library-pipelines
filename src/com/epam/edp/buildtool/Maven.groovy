@@ -28,9 +28,9 @@ class Maven implements BuildTool {
 
     def init() {
         this.settings = writeSettingsFile(this.script.libraryResource("maven/settings.xml"))
-        this.hostedRepository = "${nexus.repositoriesUrl}/edp-maven"
-        this.groupRepository = "${nexus.repositoriesUrl}/edp-maven-group"
-        this.command = "mvn --settings ${this.settings} -Dartifactory.basePath=${nexus.basePath} "
+        this.hostedRepository = "${nexus.repositoriesUrl}/${nexus.mavenRepoPath}"
+//        this.groupRepository = "${nexus.repositoriesUrl}/edp-maven-group"
+        this.command = "mvn --settings ${this.settings} -Dartifactory.baseUrl=${nexus.baseUrl} -Dartifactory.releasePath=${nexus.releasePath} -Dartifactory.snapshotsPath=${nexus.snapshotsPath} -Dartifactory.groupPath=${nexus.groupPath} "
     }
 
     private writeSettingsFile(fileContent) {
