@@ -14,6 +14,7 @@
 
 package com.epam.edp
 
+import com.epam.edp.Job
 import com.epam.edp.platform.Platform
 import groovy.json.*
 
@@ -30,6 +31,10 @@ class Nexus {
     def repositoriesUrl
     def restUrl
     def baseUrl
+    def snapshotsPath
+    def releasePath
+    def groupPath
+    def mavenRepoPath
 
     Nexus(job, platform, script) {
         this.script = script
@@ -40,15 +45,28 @@ class Nexus {
     def init() {
         this.autouser = job.getParameterValue("NEXUS_AUTOUSER", "jenkins")
         this.credentialsId = job.getParameterValue("NEXUS_CREDENTIALS", "ci.user")
-        this.baseUrl = job.getParameterValue("BASE_URL")
-        this.repositoriesUrl = "${this.baseUrl}/repository"
-        this.restUrl = "${this.baseUrl}/service/rest"
-//        this.host = job.getParameterValue("NEXUS_HOST", "nexus")
-//        this.port = job.getParameterValue("NEXUS_HTTP_PORT", "8081")
-//        basePath = platform.getJsonPathValue("nexus", "nexus", ".spec.basePath")
-//        this.basePath = basePath != "" ? "/${basePath}" : ""
-//        this.repositoriesUrl = "http://${this.host}:${this.port}${this.basePath}/repository"
-//        this.restUrl = "http://${this.host}:${this.port}${this.basePath}/service/rest"
+        this.snapshotsPath = job.getParameterValue("NEXUS_SNAPSHOTS_PATH", "edp-maven-snapshots")
+        this.releasePath = job.getParameterValue("NEXUS_RELEASES_PATH", "edp-maven-releases")
+        this.groupPath = job.getParameterValue("NEXUS_MAVEN_GROUP", "edp-maven-group")
+        this.mavenRepoPath = job.getParameterValue("NEXUS_MAVEN_REPO", "edp-maven")
+        if (platform.checkObjectExists("nexus","nexus"))
+        {
+            script.println("[JENKINS][DEBUG] Nexus CR exist")
+            this.host = job.getParameterValue("NEXUS_HOST", "nexus")
+            this.port = job.getParameterValue("NEXUS_HTTP_PORT", "8081")
+            basePath = platform.getJsonPathValue("nexus", "nexus", ".spec.basePath")
+            this.basePath = basePath != "" ? "/${basePath}" : ""
+            this.baseUrl = "http://${this.host}:${this.port}${this.basePath}"
+            this.repositoriesUrl = "${this.baseUrl}/repository"
+            this.restUrl = "${this.baseUrl}/service/rest"
+        }
+        else
+        {
+            script.println("[JENKINS][DEBUG] Nexus CR does not exist")
+            this.baseUrl = platform.getJsonPathValue("edpcomponent", "nexus", ".spec.url")
+            this.repositoriesUrl = "${this.baseUrl}/repository"
+            this.restUrl = "${this.baseUrl}/service/rest"
+        }
     }
 
 
