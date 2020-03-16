@@ -14,12 +14,13 @@
 
 package com.epam.edp.buildtool
 
+import com.epam.edp.Job
 import com.epam.edp.Nexus
 
-def getBuildToolImpl(builtTool, script, Nexus nexus) {
+def getBuildToolImpl(builtTool, script, Nexus nexus, Job job) {
     switch (builtTool.toLowerCase()) {
         case BuildToolType.MAVEN.value:
-            return new Maven(script: script, nexus: nexus)
+            return new Maven(script: script, nexus: nexus, job: job)
         case BuildToolType.NPM.value:
             return new Npm(script: script, nexus: nexus)
         case BuildToolType.GRADLE.value:
