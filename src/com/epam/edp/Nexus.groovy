@@ -29,7 +29,9 @@ class Nexus {
     def basePath
     def repositoriesUrl
     def restUrl
-    def baseUrl
+    def nexusBaseUrl
+    def nexusSnapshotsPath
+    def nexusReleasePath
 
     Nexus(job, platform, script) {
         this.script = script
@@ -40,15 +42,29 @@ class Nexus {
     def init() {
         this.autouser = job.getParameterValue("NEXUS_AUTOUSER", "jenkins")
         this.credentialsId = job.getParameterValue("NEXUS_CREDENTIALS", "ci.user")
-        this.baseUrl = job.getParameterValue("BASE_URL")
-        this.repositoriesUrl = "${this.baseUrl}/repository"
-        this.restUrl = "${this.baseUrl}/service/rest"
-//        this.host = job.getParameterValue("NEXUS_HOST", "nexus")
-//        this.port = job.getParameterValue("NEXUS_HTTP_PORT", "8081")
-//        basePath = platform.getJsonPathValue("nexus", "nexus", ".spec.basePath")
-//        this.basePath = basePath != "" ? "/${basePath}" : ""
-//        this.repositoriesUrl = "http://${this.host}:${this.port}${this.basePath}/repository"
-//        this.restUrl = "http://${this.host}:${this.port}${this.basePath}/service/rest"
+        this.nexusSnapshotsPath = job.getParameterValue("NEXUS_SNAPSHOTS_PATH")
+        this.nexusReleasePath = job.getParameterValue("NEXUS_RELEASES_PATH")
+        if (platform.checkObjectExists("nexus","nexus"))
+        {
+            script.println("[JENKINS][DEBUG] Nexus CR exist")
+            this.nexusBaseUrl = ""
+            this.host = job.getParameterValue("NEXUS_HOST", "nexus")
+            this.port = job.getParameterValue("NEXUS_HTTP_PORT", "8081")
+            basePath = platform.getJsonPathValue("nexus", "nexus", ".spec.basePath")
+            this.basePath = basePath != "" ? "/${basePath}" : ""
+            this.repositoriesUrl = "http://${this.host}:${this.port}${this.basePath}/repository"
+            this.restUrl = "http://${this.host}:${this.port}${this.basePath}/service/rest"
+        }
+        else
+        {
+            script.println("[JENKINS][DEBUG] Nexus CR does not exist")
+            this.basePath = ""
+            this.nexusBaseUrl = platform.getJsonPathValue("edpcomponent", "nexus", ".spec.url")
+            this.repositoriesUrl = "${this.nexusBaseUrl}/repository"
+            this.restUrl = "${this.nexusBaseUrl}/service/rest"
+            script.println("[JENKINS][DEBUG] repositoriesUrl - ${repositoriesUrl}")
+            script.println("[JENKINS][DEBUG] restUrl - ${restUrl}")
+        }
     }
 
 
