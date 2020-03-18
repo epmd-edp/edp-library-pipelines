@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a032449b_9be7c7b7",
+        "filename": "src/com/epam/edp/Sonar.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-03-18T09:20:17Z",
+      "side": 1,
+      "message": "brackets are redundant if there is only one-line action",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "e0ff1fdab96a4cb3c3868eff1187bcb3b8a3f781",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    }
+  ]
+}
