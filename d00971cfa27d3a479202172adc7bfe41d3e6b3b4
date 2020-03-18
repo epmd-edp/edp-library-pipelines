@@ -1,0 +1,7 @@
+Verified+1: CI Jenkins
+Code-Review+2: Serhii Shydlovskyi <serhii_shydlovskyi@epam.com>
+Submitted-by: Serhii Shydlovskyi <serhii_shydlovskyi@epam.com>
+Submitted-at: Wed, 18 Mar 2020 10:28:54 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/559
+Project: edp-library-pipelines
+Branch: refs/heads/master
