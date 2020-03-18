@@ -11,7 +11,6 @@
 //
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 allprojects {
     buildscript {
         repositories {
@@ -32,8 +31,18 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
+    apply plugin: 'org.sonarqube'
 
-    afterEvaluate { project ->
-        project.apply plugin: 'org.sonarqube'
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            xml.destination file("${buildDir}/reports/jacoco.xml")
+        }
+    }
+
+    sonarqube {
+        properties {
+            property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco.xml"
+        }
     }
 }
