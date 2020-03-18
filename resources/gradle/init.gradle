@@ -32,6 +32,20 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'maven-publish'
+    apply plugin: 'org.sonarqube'
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            xml.destination file("${buildDir}/reports/jacoco.xml")
+        }
+    }
+
+    sonarqube {
+        properties {
+            property 'sonar.coverage.jacoco.xmlReportPaths', '${project.buildDir}/reports/jacoco.xml'
+        }
+    }
 
     afterEvaluate { project ->
         project.apply plugin: 'org.sonarqube'
