@@ -16,7 +16,7 @@ allprojects {
     buildscript {
         repositories {
             maven {
-                name "maven-group"
+                name "${groupPath}"
                 credentials {
                     username nexusLogin
                     password nexusPassword
