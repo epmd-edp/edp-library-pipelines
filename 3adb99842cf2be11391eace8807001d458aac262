@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb2b94c4_00f9caab",
+        "filename": "src/com/epam/edp/Nexus.groovy",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-03-18T06:30:39Z",
+      "side": 1,
+      "message": "Let\u0027s move this to Maven.groovy, and use the following naming:\nARTIFACTS_SNAPSHOTS_PATH\nARTIFACTS_RELEASES_PATH\nARTIFACTS_PUBLIC_PATH",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 83
+      },
+      "revId": "3adb99842cf2be11391eace8807001d458aac262",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee035fe_8201ba62",
+        "filename": "src/com/epam/edp/buildtool/Maven.groovy",
+        "patchSetId": 11
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-03-18T06:30:39Z",
+      "side": 1,
+      "message": "Let\u0027s get rid of this variable",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 81
+      },
+      "revId": "3adb99842cf2be11391eace8807001d458aac262",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    }
+  ]
+}
