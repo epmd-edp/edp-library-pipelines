@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "860fe2fc_c28b026b",
+        "filename": "vars/Build.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-18T07:56:01Z",
+      "side": 1,
+      "message": "Should we use the branch name to display?",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 60
+      },
+      "revId": "3c7d9c52f205f63ccaa01b5020442ac22a4b0310",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": false
+    }
+  ]
+}
