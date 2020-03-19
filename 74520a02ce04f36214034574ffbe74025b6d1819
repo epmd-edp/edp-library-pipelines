@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4687e2d9_a95ee3b3",
+        "filename": "src/com/epam/edp/Nexus.groovy",
+        "patchSetId": 21
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-19T06:32:42Z",
+      "side": 1,
+      "message": "Lets move this duplicate lines out of if/else",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 57
+      },
+      "revId": "74520a02ce04f36214034574ffbe74025b6d1819",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "611a6920_fdd57766",
+        "filename": "src/com/epam/edp/Nexus.groovy",
+        "patchSetId": 21
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2020-03-19T06:32:42Z",
+      "side": 1,
+      "message": "Lets move this duplicate lines out of if/else",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 57
+      },
+      "revId": "74520a02ce04f36214034574ffbe74025b6d1819",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": false
+    }
+  ]
+}
