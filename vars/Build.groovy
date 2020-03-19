@@ -23,6 +23,7 @@ import com.epam.edp.platform.PlatformFactory
 import com.epam.edp.buildtool.BuildToolFactory
 import com.epam.edp.stages.StageFactory
 import org.apache.commons.lang.RandomStringUtils
+import java.util.concurrent.atomic.AtomicInteger
 
 def call() {
     def context = [:]
@@ -55,7 +56,14 @@ def call() {
             println("[JENKINS][DEBUG] Codebase config - ${context.codebase.config}")
 
             if (context.codebase.config.versioningType == "edp") {
-                def branchIndex = context.codebase.config.codebase_branch.branchName.findIndexOf { it == context.git.branch }
+                AtomicInteger position = new AtomicInteger(-1)
+                context.codebase.config.codebase_branch.stream().peek({ position.incrementAndGet() }).filter({
+                    return it.release.toBoolean() ?
+                            it.branchName.replaceAll("release/", "release-") == name :
+                            it.branchName == name
+                }).findFirst().get()
+
+                def branchIndex = position.get()
                 def build = context.codebase.config.codebase_branch.build_number.get(branchIndex).toInteger()
                 def version = context.codebase.config.codebase_branch.version.get(branchIndex)
                 def currentBuildNumber = ++build
