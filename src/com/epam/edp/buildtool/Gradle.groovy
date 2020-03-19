@@ -36,7 +36,7 @@ class Gradle implements BuildTool {
         this.hostedRepository = "${nexus.repositoriesUrl}/${this.hostedPath}"
         this.groupRepository = "${nexus.repositoriesUrl}/${this.groupPath}"
         this.settings = writeSettingsFile(this.script.libraryResource("gradle/init.gradle"))
-        this.command = "gradle -I ${settings} -PnexusMavenRepositoryUrl=${groupRepository}"
+        this.command = "gradlew -I ${settings} -PnexusMavenRepositoryUrl=${groupRepository}"
     }
 
     private writeSettingsFile(fileContent) {
