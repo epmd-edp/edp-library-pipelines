@@ -56,9 +56,15 @@ def call() {
 
             if (context.codebase.config.versioningType == "edp") {
                 def branchIndex = context.codebase.config.codebase_branch.branchName.findIndexOf { it == context.git.branch }
+                println("[JENKINS][DEBUG] context.codebase.config.codebase_branch.branchName - ${context.codebase.config.codebase_branch.branchName}")
+                println("[JENKINS][DEBUG] context.git.branch - ${context.git.branch}")
+                println("[JENKINS][DEBUG] branchIndex - ${branchIndex}")
                 def build = context.codebase.config.codebase_branch.build_number.get(branchIndex).toInteger()
+                println("[JENKINS][DEBUG] build - ${build}")
                 def version = context.codebase.config.codebase_branch.version.get(branchIndex)
+                println("[JENKINS][DEBUG] Codebase config - ${version}")
                 def currentBuildNumber = ++build
+                println("[JENKINS][DEBUG] Codebase config - ${currentBuildNumber}")
 
                 context.codebase.setVersions(version, currentBuildNumber, "${version}.${currentBuildNumber}", "${version}.${currentBuildNumber}")
                 context.job.setDisplayName("${context.codebase.version}")
