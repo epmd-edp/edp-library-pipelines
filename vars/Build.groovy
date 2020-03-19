@@ -55,11 +55,12 @@ def call() {
             println("[JENKINS][DEBUG] Codebase config - ${context.codebase.config}")
 
             if (context.codebase.config.versioningType == "edp") {
-                def branchIndex = context.codebase.config.codebase_branch.branchName.findIndexOf{it == context.git.branch}
+                def branchIndex = context.codebase.config.codebase_branch.branchName.findIndexOf { it == context.git.branch }
                 def build = context.codebase.config.codebase_branch.build_number.get(branchIndex).toInteger()
                 def version = context.codebase.config.codebase_branch.version.get(branchIndex)
 
-                context.job.setDisplayName("${version}.${++build}")
+                context.codebase.setVersions(version, ++build, "${version}.${context.codebase.currentBuildNumber}", context.codebase.version)
+                context.job.setDisplayName("${context.codebase.version}")
             } else {
                 context.job.setDisplayName("${currentBuild.number}-${context.git.branch}")
             }
@@ -90,7 +91,7 @@ def call() {
                     context.job.runStage(stage.name, context)
                 }
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             println("[JENKINS][ERROR] Build pipeline has been failed. Reason - ${ex}")
             currentBuild.setResult('FAILED')
         } finally {
