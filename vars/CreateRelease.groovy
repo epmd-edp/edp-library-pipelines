@@ -66,6 +66,7 @@ def call() {
                 string(name: 'GIT_SERVER_CR_VERSION', value: "${context.git.gitServerCrVersion}"),
                 string(name: 'GIT_CREDENTIALS_ID', value: "${context.git.credentialsId}"),
                 string(name: 'REPOSITORY_PATH', value: "${context.job.getParameterValue("REPOSITORY_PATH")}"),
+                string(name: 'RELEASE', value: "${context.job.getParameterValue("RELEASE")}"),
         ]
 
         context.job.stages.each() { stage ->
