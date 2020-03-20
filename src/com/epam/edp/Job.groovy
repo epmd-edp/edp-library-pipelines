@@ -41,6 +41,7 @@ class Job {
     def jenkinsUrl
     def codebasesList = []
     def servicesList = []
+    def isReleaseBranch
     def userInputImagesToDeploy
     def releaseName
     def releaseFromCommitId
@@ -101,6 +102,7 @@ class Job {
                     script.error("[JENKINS][ERROR] Parameter RELEASE_NAME is mandatory to be specified, please check configuration of job")
                 }
                 this.releaseName = getParameterValue("RELEASE_NAME").toLowerCase()
+                this.isReleaseBranch = getParameterValue("RELEASE", false)
                 this.releaseFromCommitId = getParameterValue("COMMIT_ID", "")
             case JobType.DEPLOY.value:
                 this.maxOfParallelDeployApps = getParameterValue("MAX_PARALLEL_APPS", 5)
@@ -258,12 +260,12 @@ class Job {
         return tags
                 .collect { new ComparableVersion(it) }
                 .sort { e1, e2 ->
-            def res = map.getOrDefault(e1.toString(), 0) - map.getOrDefault(e2.toString(), 0)
-            if (res == 0)
-                return e1 <=> e2
-            return res
-        }
-        .collect { item -> item.toString() }
+                    def res = map.getOrDefault(e1.toString(), 0) - map.getOrDefault(e2.toString(), 0)
+                    if (res == 0)
+                        return e1 <=> e2
+                    return res
+                }
+                .collect { item -> item.toString() }
                 .reverse()
     }
 
