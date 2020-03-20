@@ -108,6 +108,12 @@ class Job {
         }
     }
 
+    def getDefaultKeycloakUrl(dnsWildcard) {
+        return !dnsWildcard?.trim() ?
+                "https://keycloak-security.delivery.aws.main.edp.projects.epam.com" :
+                "https://keycloak-security.${dnsWildcard}"
+    }
+
     def initDeployJob() {
         this.pipelineName = script.JOB_NAME.split("-cd-pipeline")[0]
         this.stageName = script.JOB_NAME.split('/')[1]
@@ -122,7 +128,7 @@ class Job {
         this.deployProject = "${this.edpName}-${this.pipelineName}-${stageName}"
         this.ciProject = getParameterValue("CI_NAMESPACE")
         this.keycloakNamespace = getParameterValue("KEYCLOAK_NAMESPACE", "security")
-        this.keycloakUrl = getParameterValue("KEYCLOAK_URL")
+        this.keycloakUrl = getParameterValue("KEYCLOAK_URL", getDefaultKeycloakUrl(this.dnsWildcard))
         stageContent.applications.each() { item ->
             stageCodebasesList.add(item.name)
             codebaseBranchList["${item.name}"] = ["branch"  : item.branchName,
