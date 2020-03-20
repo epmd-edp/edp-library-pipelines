@@ -40,7 +40,8 @@ class Maven implements BuildTool {
         this.settings = writeSettingsFile(this.script.libraryResource("maven/settings.xml"))
         this.groupRepository = "${nexus.repositoriesUrl}/${this.groupPath}"
         this.hostedRepository = "${nexus.repositoriesUrl}/${this.hostedPath}"
-        this.command = "mvn --settings ${this.settings} -Dartifactory.baseUrl=${nexus.baseUrl} -Dartifactory.releasePath=${this.releasesPath} -Dartifactory.snapshotsPath=${this.snapshotsPath} -Dartifactory.groupPath=${this.groupPath} "
+        this.command = "mvn --settings ${this.settings}"
+        this.properties = "-Dartifactory.baseUrl=${nexus.baseUrl} -Dartifactory.releasePath=${this.releasesPath} -Dartifactory.snapshotsPath=${this.snapshotsPath} -Dartifactory.groupPath=${this.groupPath}"
     }
 
     private writeSettingsFile(fileContent) {
