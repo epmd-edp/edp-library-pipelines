@@ -155,7 +155,7 @@ class Kubernetes implements Platform {
                 "--wait " +
                 "--timeout=${timeout} " +
                 "--namespace ${project} " +
-                "--set name=${codebase.name} " +
+                "--generate-name " +
                 "--set namespace=${project} " +
                 "--set cdPipelineName=${codebase.cdPipelineName} " +
                 "--set cdPipelineStageName=${codebase.cdPipelineStageName} " +
