@@ -149,9 +149,8 @@ class Kubernetes implements Platform {
     }
 
     def deployCodebase(project, chartPath, imageName, codebase, dnsWildcard, timeout, isDeployed) {
-        def command = isDeployed ? "upgrade --force" : "install -n"
-        script.sh("helm ${command} " +
-                "${project}-${codebase.name} " +
+        script.sh("helm upgrade --force --install " +
+                "${codebase.name} " +
                 "--wait " +
                 "--timeout=${timeout} " +
                 "--namespace ${project} " +
