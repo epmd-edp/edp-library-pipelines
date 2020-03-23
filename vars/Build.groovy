@@ -109,6 +109,8 @@ def call() {
 
 @NonCPS
 def private getCodebaseBranch(codebaseBranch, gitBranchName) {
+    println("[JENKINS][TEST-STAS] Codebase config - ${codebaseBranch}")
+    println("[JENKINS][TEST-STAS] Codebase config - ${gitBranchName}")
     return codebaseBranch.stream().filter({
         return it.release.toBoolean() ?
                 it.branchName.replaceAll("release/", "release-") == gitBranchName :
