@@ -55,6 +55,7 @@ def call() {
             println("[JENKINS][DEBUG] Codebase config - ${context.codebase.config}")
 
             if (context.codebase.config.versioningType == "edp") {
+                println("[JENKINS][TEST-STAS] Codebase config - ${context.git.branch}")
                 def codebaseBranch = getCodebaseBranch(context.codebase.config.codebase_branch,context.git.branch)
                 def build = codebaseBranch.build_number.toInteger()
                 def version = codebaseBranch.version
