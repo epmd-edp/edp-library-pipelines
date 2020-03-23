@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62ea4e9d_9d230249",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2020-03-23T09:04:49Z",
+      "side": 1,
+      "message": "This 2 parameter can confuse. \"Release name is mandatory, but release is false\" looks weird)",
+      "range": {
+        "startLine": 104,
+        "startChar": 54,
+        "endLine": 105,
+        "endChar": 74
+      },
+      "revId": "4860b89cf5a940c2f3d8ac062f60ec4c8441ec81",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": false
+    }
+  ]
+}
