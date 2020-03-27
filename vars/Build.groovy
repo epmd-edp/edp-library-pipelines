@@ -62,6 +62,8 @@ def call() {
                 def version = codebaseBranch.version
                 def currentBuildNumber = ++build
 
+                println("[JENKINS][DEBUG] VCS tag - build/${context.codebase.buildVersion}")
+
                 context.codebase.setVersions(version, currentBuildNumber, "${version}.${currentBuildNumber}", "${version}.${currentBuildNumber}")
                 context.job.setDisplayName("${context.codebase.version}")
             } else {
