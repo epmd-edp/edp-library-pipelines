@@ -32,6 +32,8 @@ class Codebase {
     def gitServerCrName = ""
     def branchVersion = ""
     def currentBuildNumber = ""
+    def vcsTag = ""
+    def dsTag = ""
 
     Codebase(job, name, platform, script) {
         this.job = job
@@ -51,10 +53,20 @@ class Codebase {
         this.gitServerCrName = componentSettings.gitServer
     }
 
+    def setVCStag(vcsTag) {
+        this.vcsTag = vcsTag
+    }
+
+    def setDStag(dsTag) {
+        this.dsTag = dsTag
+    }
+
     def setVersions(branchVersion, currentBuildNumber, version, buildVersion) {
         this.branchVersion = branchVersion
         this.currentBuildNumber = currentBuildNumber
         this.version = version
         this.buildVersion = buildVersion
+        println("[JENKINS][DEBUG] BRANCH---- ${branchVersion}")
+        println("[JENKINS][DEBUG] BRANCH---- ${version}")
     }
 }
