@@ -62,10 +62,22 @@ def call() {
                 def version = codebaseBranch.version
                 def currentBuildNumber = ++build
 
+                context.codebase.setVCStag("build/${context.codebase.buildVersion}")
+                context.codebase.setDStag("${context.codebase.buildVersion}}")
+
+                println("[JENKINS][DEBUG] VCS tag - ${context.codebase.vcsTag}")
+                println("[JENKINS][DEBUG] DS tag - ${context.codebase.dsTag}")
+
                 context.codebase.setVersions(version, currentBuildNumber, "${version}.${currentBuildNumber}", "${version}.${currentBuildNumber}")
                 context.job.setDisplayName("${context.codebase.version}")
             } else {
                 context.job.setDisplayName("${currentBuild.number}-${context.git.branch}")
+
+                context.codebase.setVCStag("${context.codebase.branchVersion}-${context.codebase.buildVersion}")
+                context.codebase.setDStag("${context.codebase.branchVersion}-${context.codebase.buildVersion}")
+
+                println("[JENKINS][DEBUG] VCS tag - ${context.codebase.vcsTag}")
+                println("[JENKINS][DEBUG] DS tag - ${context.codebase.dsTag}")
             }
 
             context.job.setDescription("Name: ${context.codebase.config.name}\r\nLanguage: ${context.codebase.config.language}" +
