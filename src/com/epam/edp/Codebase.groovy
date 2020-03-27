@@ -32,6 +32,8 @@ class Codebase {
     def gitServerCrName = ""
     def branchVersion = ""
     def currentBuildNumber = ""
+    def vcsTag = ""
+    def isTag = ""
 
     Codebase(job, name, platform, script) {
         this.job = job
@@ -49,6 +51,14 @@ class Codebase {
         componentSettings.cloneUrl = "ssh://${gitAutouser}@${gitHost}:${gitSshPort}${repositoryRelativePath?.trim() ? repositoryRelativePath : "/" + gitProject}"
         this.config = componentSettings
         this.gitServerCrName = componentSettings.gitServer
+    }
+
+    def setVCStag(vcsTag) {
+        this.vcsTag = vcsTag
+    }
+
+    def setIStag(isTag) {
+        this.isTag = isTag
     }
 
     def setVersions(branchVersion, currentBuildNumber, version, buildVersion) {
