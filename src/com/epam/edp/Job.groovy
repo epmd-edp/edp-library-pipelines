@@ -31,6 +31,7 @@ class Job {
     def STABLE_TAG = "stable"
     def stages = [:]
     def deployTemplatesDirectory
+    def deployTimeout
     def edpName
     def stageName
     def deployProject
@@ -121,6 +122,7 @@ class Job {
         this.stageWithoutPrefixName = "${this.pipelineName}-${stageName}"
         this.deployProject = "${this.edpName}-${this.pipelineName}-${stageName}"
         this.ciProject = getParameterValue("CI_NAMESPACE")
+        this.deployTimeout = getParameterValue("DEPLOY_TIMEOUT", "300s")
         this.keycloakNamespace = getParameterValue("KEYCLOAK_NAMESPACE", "security")
         this.keycloakUrl = getParameterValue("KEYCLOAK_URL")
         stageContent.applications.each() { item ->
