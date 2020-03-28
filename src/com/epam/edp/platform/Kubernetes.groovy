@@ -183,6 +183,6 @@ class Kubernetes implements Platform {
     }
 
     def rollbackDeployedCodebase(name, project, kind = null) {
-        script.sh("helm rollback ${project}-${name} 0")
+        script.sh("helm --namespace ${project} rollback ${name} 0")
     }
 }
