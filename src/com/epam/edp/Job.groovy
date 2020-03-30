@@ -121,8 +121,7 @@ class Job {
         this.stageWithoutPrefixName = "${this.pipelineName}-${stageName}"
         this.deployProject = "${this.edpName}-${this.pipelineName}-${stageName}"
         this.ciProject = getParameterValue("CI_NAMESPACE")
-        this.keycloakNamespace = getParameterValue("KEYCLOAK_NAMESPACE", "security")
-        this.keycloakUrl = getParameterValue("KEYCLOAK_URL")
+        this.keycloakUrl = getParameterValue("KEYCLOAK_URL", platform.getJsonPathValue("edpcomponent", "main-keycloak", ".spec.url"))
         stageContent.applications.each() { item ->
             stageCodebasesList.add(item.name)
             codebaseBranchList["${item.name}"] = ["branch"  : item.branchName,
