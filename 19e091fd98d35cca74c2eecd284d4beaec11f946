@@ -1,0 +1,8 @@
+Verified+1: CI Jenkins
+Code-Review+1: Mykola Marusenko <mykola_marusenko@epam.com>
+Code-Review+2: Stanislav Kostenko <stanislav_kostenko@epam.com>
+Submitted-by: Stanislav Kostenko <stanislav_kostenko@epam.com>
+Submitted-at: Tue, 31 Mar 2020 12:54:50 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/718
+Project: edp-library-pipelines
+Branch: refs/heads/master
