@@ -34,6 +34,7 @@ class Codebase {
     def currentBuildNumber = ""
     def vcsTag = ""
     def isTag = ""
+    def isReleaseBranch = false
 
     Codebase(job, name, platform, script) {
         this.job = job
@@ -53,6 +54,7 @@ class Codebase {
         this.gitServerCrName = componentSettings.gitServer
     }
 
+<<<<<<< HEAD
     def setVCStag(vcsTag) {
         this.vcsTag = vcsTag
     }
@@ -62,9 +64,13 @@ class Codebase {
     }
 
     def setVersions(branchVersion, currentBuildNumber, version, buildVersion) {
+=======
+    def setVersions(branchVersion, currentBuildNumber, version, buildVersion, isReleaseBranch) {
+>>>>>>> master
         this.branchVersion = branchVersion
         this.currentBuildNumber = currentBuildNumber
         this.version = version
         this.buildVersion = buildVersion
+        this.isReleaseBranch = isReleaseBranch
     }
 }
