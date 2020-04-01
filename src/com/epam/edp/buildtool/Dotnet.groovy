@@ -24,18 +24,14 @@ class Dotnet implements BuildTool {
     Job job
 
     def sln_filename
-    def hostedRepository
-    def groupRepository
     def scripts = [:]
     def nugetApiKey
-    def groupPath
-    def hostedPath
+    def snapshotsPath
+    def releasesPath
 
     def init() {
-        this.groupPath = job.getParameterValue("ARTIFACTS_PUBLIC_PATH", "edp-dotnet-group")
-        this.hostedPath = job.getParameterValue("ARTIFACTS_HOSTED_PATH", "edp-dotnet-hosted")
-        this.hostedRepository = "${nexus.repositoriesUrl}/${hostedPath}/"
-        this.groupRepository = "${nexus.repositoriesUrl}/${groupPath}/"
+        this.snapshotsPath = job.getParameterValue("ARTIFACTS_SNAPSHOTS_PATH", "edp-dotnet-snapshots")
+        this.releasesPath = job.getParameterValue("ARTIFACTS_RELEASES_PATH", "edp-dotnet-releases")
         this.scripts = ['get-nuget-token': ['scriptPath': this.script.libraryResource("nexus/get-nuget-token.groovy")]]
         this.sln_filename = null
         this.nugetApiKey = getNugetToken("get-nuget-token")
@@ -51,5 +47,11 @@ class Dotnet implements BuildTool {
         }
         def response = new JsonSlurperClassic().parseText(result.content)
         return new JsonSlurperClassic().parseText(response.result).nuGetApiKey
+    }
+
+    def getNexusRepositoryUrl(isRelease) {
+        return isRelease
+                ? "${this.nexus.repositoriesUrl}/${this.releasesPath}"
+                : "${this.nexus.repositoriesUrl}/${this.snapshotsPath}"
     }
 }

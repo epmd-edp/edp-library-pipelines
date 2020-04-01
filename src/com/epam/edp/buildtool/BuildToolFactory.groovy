@@ -34,4 +34,5 @@ def getBuildToolImpl(builtTool, script, Nexus nexus, Job job) {
 
 interface BuildTool {
     def init()
+    def getNexusRepositoryUrl(isRelease)
 }
