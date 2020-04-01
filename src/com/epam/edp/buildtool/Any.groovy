@@ -27,12 +27,21 @@ class Any implements BuildTool {
     def groupRepository
     def groupPath
     def hostedPath
-
+    def snapshotsPath
+    def releasesPath
 
     def init() {
+        this.snapshotsPath = job.getParameterValue("ARTIFACTS_SNAPSHOTS_PATH", "edp-dotnet-snapshots")
+        this.releasesPath = job.getParameterValue("ARTIFACTS_RELEASES_PATH", "edp-dotnet-releases")
         this.groupPath = job.getParameterValue("ARTIFACTS_PUBLIC_PATH", "edp-other-group")
         this.hostedPath = job.getParameterValue("ARTIFACTS_HOSTED_PATH", "edp-other-hosted")
         this.hostedRepository = "${nexus.repositoriesUrl}/${this.hostedPath}/"
         this.groupRepository = "${nexus.repositoriesUrl}/${this.groupPath}/"
+    }
+
+    def getNexusRepositoryUrl(isRelease) {
+        return isRelease
+                ? "${this.nexus.repositoriesUrl}/${this.releasesPath}"
+                : "${this.nexus.repositoriesUrl}/${this.snapshotsPath}"
     }
 }

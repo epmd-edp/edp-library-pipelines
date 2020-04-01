@@ -25,16 +25,13 @@ class Gradle implements BuildTool {
 
     def settings
     def groupRepository
-    def hostedRepository
     def command
-    def groupPath
-    def hostedPath
+    def snapshotsPath
+    def releasesPath
 
     def init() {
-        this.hostedPath = job.getParameterValue("ARTIFACTS_HOSTED_PATH", "edp-maven")
-        this.groupPath = job.getParameterValue("ARTIFACTS_PUBLIC_PATH", "edp-maven-group")
-        this.hostedRepository = "${nexus.repositoriesUrl}/${this.hostedPath}"
-        this.groupRepository = "${nexus.repositoriesUrl}/${this.groupPath}"
+        this.snapshotsPath = job.getParameterValue("ARTIFACTS_SNAPSHOTS_PATH", "edp-maven-snapshots")
+        this.releasesPath = job.getParameterValue("ARTIFACTS_RELEASES_PATH", "edp-maven-releases")
         this.settings = writeSettingsFile(this.script.libraryResource("gradle/init.gradle"))
         this.command = "gradle -I ${settings} -PnexusMavenRepositoryUrl=${groupRepository}"
     }
@@ -44,5 +41,11 @@ class Gradle implements BuildTool {
         settingsDir.deleteDir()
         script.writeFile file: "${settingsDir}/init.gradle", text: fileContent
         return("${settingsDir}/init.gradle")
+    }
+
+    def getNexusRepositoryUrl(isRelease) {
+        return isRelease
+                ? "${this.nexus.repositoriesUrl}/${this.releasesPath}"
+                : "${this.nexus.repositoriesUrl}/${this.snapshotsPath}"
     }
 }
