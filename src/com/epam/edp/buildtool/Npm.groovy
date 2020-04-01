@@ -22,17 +22,23 @@ class Npm implements BuildTool {
     Nexus nexus
     Job job
 
-    def settings
     def groupRepository
-    def hostedRepository
-    def groupPath
-    def hostedPath
+    def snapshotsPath
+    def releasesPath
 
 
     def init() {
-        this.groupPath = job.getParameterValue("ARTIFACTS_PUBLIC_PATH", "edp-npm-group")
-        this.hostedPath = job.getParameterValue("ARTIFACTS_HOSTED_PATH", "edp-npm-hosted")
-        this.hostedRepository = "${nexus.repositoriesUrl}/${hostedPath}/"
+        this.snapshotsPath = job.getParameterValue("ARTIFACTS_SNAPSHOTS_PATH", "edp-npm-snapshots")
+        this.releasesPath = job.getParameterValue("ARTIFACTS_RELEASES_PATH", "edp-npm-releases")
+        def groupPath = job.getParameterValue("ARTIFACTS_PUBLIC_PATH", "edp-npm-group")
         this.groupRepository = "${nexus.repositoriesUrl}/${groupPath}/"
+    }
+
+    def getNexusRepositoryUrl(isRelease) {
+        def url = isRelease
+                ? "${this.nexus.repositoriesUrl}/${this.releasesPath}"
+                : "${this.nexus.repositoriesUrl}/${this.snapshotsPath}"
+        this.script.println("[JENKINS][DEBUG] isRelease ${isRelease} URL ${url}")
+        return url
     }
 }
