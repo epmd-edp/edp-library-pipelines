@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD   (910c4d [EPMDEDP-4974] Add parameter for helm version)
   "edp-library-pipelines": "2.5.0"
 }
+=======
+  "edp-library-pipelines": "2.3.5-alpha"
+}
+>>>>>>> CHANGE (6a6125 [EPMDEDP-4939] variable for additional maven args)
