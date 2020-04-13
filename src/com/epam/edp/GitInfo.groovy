@@ -67,20 +67,28 @@ class GitInfo {
         script.println("[JENKINS][DEBUG] host: ${this.host}")
         script.println("[JENKINS][DEBUG] sshPort: ${this.sshPort}")
 
-        this.project = job.getParameterValue("GERRIT_PROJECT")
-        this.branch = job.getParameterValue("GERRIT_BRANCH")
-        if (!this.branch)
-            this.branch = job.getParameterValue("BRANCH", "master")
-        this.patchsetNumber = job.getParameterValue("GERRIT_PATCHSET_NUMBER")
-        this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER")
-        this.changeName = "change-${this.changeNumber}-${this.patchsetNumber}"
-        this.refspecName = job.getParameterValue("GERRIT_REFSPEC")
         switch (job.type) {
+            case JobType.CODEREVIEW.value:
+                this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER")
+                this.patchsetNumber = job.getParameterValue("GERRIT_PATCHSET_NUMBER")
+                if (this.patchsetNumber && this.changeNumber)
+                    this.changeName = "change-${this.changeNumber}-${this.patchsetNumber}"
+
+                this.changeNumber = this.changeNumber ?: job.getParameterValue("ghprbPullId")
+                this.changeName = this.changeNumber ? "pr-${this.changeNumber}" : ""
+
+                this.refspecName = job.getParameterValue("GERRIT_REFSPEC")
+
+                this.project = job.getParameterValue("GERRIT_PROJECT")
+                this.branch = job.getParameterValue("GERRIT_BRANCH") ?: job.getParameterValue("ghprbActualCommit")
+            case JobType.BUILD.value:
+                this.branch = job.getParameterValue("BRANCH")
             case [JobType.BUILD.value, JobType.CODEREVIEW.value]:
-                if (this.project == null)
-                    this.project = job.getParameterValue("GERRIT_PROJECT_NAME")
-                if (this.project == null)
+                this.project = this.project ?: job.getParameterValue("GERRIT_PROJECT_NAME")
+                if (!this.project)
                     script.error("[JENKINS][ERROR] Couldn't determine project, please make sure that GERRIT_PROJECT_NAME variable is defined")
+                if (!this.branch)
+                    script.error("[JENKINS][ERROR] Couldn't determine branch to build, please make sure that BRANCH variable is defined")
         }
 
         def strategy = platform.getJsonPathValue(codebaseCrApiGroup, this.project, ".spec.strategy")
