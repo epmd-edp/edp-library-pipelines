@@ -30,6 +30,7 @@ class GitInfo {
     def host
     def project
     def branch
+    def displayBranch
     def changeNumber = 0
     def changeName
     def refspecName
@@ -67,26 +68,38 @@ class GitInfo {
         script.println("[JENKINS][DEBUG] host: ${this.host}")
         script.println("[JENKINS][DEBUG] sshPort: ${this.sshPort}")
 
-        this.project = job.getParameterValue("GERRIT_PROJECT")
-        this.branch = job.getParameterValue("GERRIT_BRANCH")
-        if (!this.branch)
-            this.branch = job.getParameterValue("BRANCH", "master")
-        this.patchsetNumber = job.getParameterValue("GERRIT_PATCHSET_NUMBER")
-        this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER")
-        this.changeName = "change-${this.changeNumber}-${this.patchsetNumber}"
-        this.refspecName = job.getParameterValue("GERRIT_REFSPEC")
-        switch (job.type) {
-            case [JobType.BUILD.value, JobType.CODEREVIEW.value]:
-                if (this.project == null)
-                    this.project = job.getParameterValue("GERRIT_PROJECT_NAME")
-                if (this.project == null)
-                    script.error("[JENKINS][ERROR] Couldn't determine project, please make sure that GERRIT_PROJECT_NAME variable is defined")
+        this.project = defineGitVariables(["GERRIT_PROJECT", "GERRIT_PROJECT_NAME"])
+        this.branch = defineGitVariables(["GERRIT_BRANCH", "ghprbActualCommit"])
+        this.displayBranch = defineGitVariables(["GERRIT_BRANCH", "ghprbSourceBranch"])
+
+        if (job.type == JobType.CODEREVIEW.value) {
+            this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER")
+            this.patchsetNumber = job.getParameterValue("GERRIT_PATCHSET_NUMBER")
+            if (this.patchsetNumber && this.changeNumber)
+                this.changeName = "change-${this.changeNumber}-${this.patchsetNumber}"
+
+            this.changeNumber = this.changeNumber ?: job.getParameterValue("ghprbPullId")
+            this.changeName = this.changeNumber ? "pr-${this.changeNumber}" : ""
+
+            this.refspecName = job.getParameterValue("GERRIT_REFSPEC")
         }
+
+        if (job.type in [JobType.BUILD.value, JobType.CODEREVIEW.value, JobType.CREATERELEASE.value] && !this.project)
+            script.error("[JENKINS][ERROR] Couldn't determine project, please make sure that GERRIT_PROJECT_NAME variable is defined")
+
+        if(job.type in [JobType.BUILD.value, JobType.CODEREVIEW.value] && !this.branch)
+                script.error("[JENKINS][ERROR] Couldn't determine branch to build, please make sure that BRANCH variable is defined")
 
         def strategy = platform.getJsonPathValue(codebaseCrApiGroup, this.project, ".spec.strategy")
         if (strategy == "import") {
             this.repositoryRelativePath = platform.getJsonPathValue(codebaseCrApiGroup, this.project, ".spec.gitUrlPath")
         }
+    }
 
+    def defineGitVariables(envVariablesList) {
+        envVariablesList.each() {
+            variable = job.getParameterValue(it)
+        }
+        return variable
     }
 }
