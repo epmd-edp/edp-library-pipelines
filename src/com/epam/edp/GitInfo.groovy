@@ -70,6 +70,8 @@ class GitInfo {
         this.project = job.getParameterValue("GERRIT_PROJECT")
         this.branch = job.getParameterValue("GERRIT_BRANCH")
         if (!this.branch)
+            this.branch = job.getParameterValue("ghprbActualCommit")
+        if (!this.branch)
             this.branch = job.getParameterValue("BRANCH", "master")
         this.patchsetNumber = job.getParameterValue("GERRIT_PATCHSET_NUMBER")
         this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER")
