@@ -60,6 +60,7 @@ def call() {
                 def codebaseBranch = getCodebaseBranch(context.codebase.config.codebase_branch, context.git.branch)
                 def build = codebaseBranch.build_number.toInteger()
                 def version = codebaseBranch.version
+                println("[JENKINS][DEBUG] version version - ${version}")
                 def currentBuildNumber = ++build
                 def isReleaseBranch = codebaseBranch.release
 
