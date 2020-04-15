@@ -57,9 +57,13 @@ def call() {
             println("[JENKINS][DEBUG] Codebase config - ${context.codebase.config}")
 
             if (context.codebase.config.versioningType == "edp") {
+                script.println("[JENKINS][DEBUG] context.codebase.config.codebase_branch - ${context.codebase.config.codebase_branch} || ${context.git.branch}")
+                context.script.println("[JENKINS][DEBUG] context.codebase.config.codebase_branch - ${context.codebase.config.codebase_branch} || ${context.git.branch}")
                 def codebaseBranch = getCodebaseBranch(context.codebase.config.codebase_branch, context.git.branch)
                 def build = codebaseBranch.build_number.toInteger()
                 def version = codebaseBranch.version
+                script.println("[JENKINS][DEBUG] version version - ${version}")
+                context.script.println("[JENKINS][DEBUG] version version - ${version}")
                 def currentBuildNumber = ++build
                 def isReleaseBranch = codebaseBranch.release
 
