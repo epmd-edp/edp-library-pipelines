@@ -1,0 +1,7 @@
+Verified+1: CI Jenkins
+Code-Review+2: Viktor Voronin <viktor_voronin@epam.com>
+Submitted-by: Viktor Voronin <viktor_voronin@epam.com>
+Submitted-at: Thu, 16 Apr 2020 07:06:47 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/891
+Project: edp-library-pipelines
+Branch: refs/heads/release-2.3
