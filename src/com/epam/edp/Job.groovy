@@ -60,6 +60,7 @@ class Job {
     def crApiVersion = "v2"
     def crApiGroup
     def dnsWildcard
+    def manualTimeout
 
     Job(type, platform, script) {
         this.type = type
@@ -121,6 +122,7 @@ class Job {
         this.deployProject = "${this.edpName}-${this.pipelineName}-${stageName}"
         this.ciProject = getParameterValue("CI_NAMESPACE")
         this.deployTimeout = getParameterValue("DEPLOY_TIMEOUT", "300s")
+        this.manualTimeout = getParameterValue("MANUAL_TIMEOUT", "10")
         stageContent.applications.each() { item ->
             stageCodebasesList.add(item.name)
             codebaseBranchList["${item.name}"] = ["branch"  : item.branchName,
@@ -311,7 +313,7 @@ class Job {
     }
 
     def setDescription(description, addDescription = false) {
-        if (addDescription && script.currentBuild.description?.trim())
+        if (addDescription)
             script.currentBuild.description = "${script.currentBuild.description}\r\n${description}"
         else
             script.currentBuild.description = description
