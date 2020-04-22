@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "521ce9aa_a863d239",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-22T08:02:30Z",
+      "side": 1,
+      "message": "manualApproveStageTimeout",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 63,
+        "endChar": 21
+      },
+      "revId": "acfc4b51fd4c9da3b425ad37fd95b9849dae8872",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a50e149_928a6bc3",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-22T08:02:30Z",
+      "side": 1,
+      "message": "MANUAL_APPROVE_TIMEOUT",
+      "range": {
+        "startLine": 125,
+        "startChar": 48,
+        "endLine": 125,
+        "endChar": 62
+      },
+      "revId": "acfc4b51fd4c9da3b425ad37fd95b9849dae8872",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    }
+  ]
+}
