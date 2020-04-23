@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14d8e5e6_6149673a",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-23T11:18:07Z",
+      "side": 1,
+      "message": "Odd condition)",
+      "range": {
+        "startLine": 283,
+        "startChar": 24,
+        "endLine": 283,
+        "endChar": 108
+      },
+      "revId": "9c15a4d2a9c24e4537343ccc3cdb3bf810273e75",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c900dea0_b3733b28",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-23T11:18:07Z",
+      "side": 1,
+      "message": "Why not version?",
+      "range": {
+        "startLine": 285,
+        "startChar": 129,
+        "endLine": 285,
+        "endChar": 135
+      },
+      "revId": "9c15a4d2a9c24e4537343ccc3cdb3bf810273e75",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1119daf_eee8c566",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-23T11:18:07Z",
+      "side": 1,
+      "message": "setCodebaseVersionFromUser",
+      "range": {
+        "startLine": 293,
+        "startChar": 16,
+        "endLine": 293,
+        "endChar": 35
+      },
+      "revId": "9c15a4d2a9c24e4537343ccc3cdb3bf810273e75",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7db330_169c65f1",
+        "filename": "src/com/epam/edp/Job.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-04-23T11:18:07Z",
+      "side": 1,
+      "message": "Why do we need return here?",
+      "range": {
+        "startLine": 318,
+        "startChar": 12,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "9c15a4d2a9c24e4537343ccc3cdb3bf810273e75",
+      "serverId": "0350cb7f-c1b1-4710-a647-f6632dbafb3c",
+      "unresolved": true
+    }
+  ]
+}
