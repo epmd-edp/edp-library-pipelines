@@ -27,6 +27,7 @@ import org.apache.commons.lang.RandomStringUtils
 def call() {
     def context = [:]
     node("master") {
+        updateGitlabCommitStatus state: "running"
         stage("Init") {
             context.platform = new PlatformFactory().getPlatformImpl(this)
 
@@ -81,4 +82,5 @@ def call() {
             }
         }
     }
+    updateGitlabCommitStatus state: "success"
 }
