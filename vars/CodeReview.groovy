@@ -27,6 +27,10 @@ import org.apache.commons.lang.RandomStringUtils
 def call() {
     def context = [:]
     node("master") {
+        updateGitlabCommitStatus name: 'jenkins', state: 'running'
+        gitlabCommitStatus
+        gitlabBuilds
+        addGitLabMRComment comment: "Running"
         stage("Init") {
             context.platform = new PlatformFactory().getPlatformImpl(this)
 
@@ -81,4 +85,5 @@ def call() {
             }
         }
     }
+    updateGitlabCommitStatus state: "success"
 }
