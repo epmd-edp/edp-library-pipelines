@@ -208,6 +208,8 @@ _**NOTE**: Pay attention that the job updates only the existing in Admin Console
 
 It is possible to deploy your projects by running CD pipelines in Prod Jenkins as in Dev environment.
 
-### Related Articles _to be added_
+### Related Articles
 
+- [Add a New Custom Global Pipeline Library](documentation/add_new_custom_global_pipeline_lib.md)
+- [Customize CI Pipeline](documentation/customize_ci_pipeline.md)
 
