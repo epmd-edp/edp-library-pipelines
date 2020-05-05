@@ -54,19 +54,24 @@ def call() {
         context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
         context.workDir.deleteDir()
 
-        context.triggerJobName = "job-provisions/${context.codebase.config.jobProvisioning}"
-        context.triggerJobWait = true
-        context.triggerJobParameters = [
-                string(name: 'PARAM', value: "true"),
-                string(name: 'NAME', value: "${context.codebase.config.name}"),
-                string(name: 'TYPE', value: "${context.codebase.config.type}"),
-                string(name: 'BUILD_TOOL', value: "${context.codebase.config.build_tool}"),
-                string(name: 'BRANCH', value: "${context.job.releaseName}"),
-                string(name: 'GIT_SERVER_CR_NAME', value: "${context.git.gitServerCrName}"),
-                string(name: 'GIT_SERVER_CR_VERSION', value: "${context.git.gitServerCrVersion}"),
-                string(name: 'GIT_CREDENTIALS_ID', value: "${context.git.credentialsId}"),
-                string(name: 'REPOSITORY_PATH', value: "${context.job.getParameterValue("REPOSITORY_PATH")}"),
-        ]
+        context.job.triggerJobName = "job-provisions/${context.codebase.config.jobProvisioning}"
+        context.job.triggerJobWait = true
+        context.job.triggerJobPropogate = true
+
+        println("1 context.job.triggerJobParameters - ${context.job.triggerJobParametersTest}")
+        context.job.setTriggerJobParameters([
+                ['name': 'PARAM', 'value': 'true'],
+                ['name': 'NAME', 'value': context.codebase.config.name ],
+                ['name': 'TYPE', 'value': context.codebase.config.type ],
+                ['name': 'BUILD_TOOL', 'value': context.codebase.config.build_tool ],
+                ['name': 'BRANCH', 'value': context.job.releaseName ],
+                ['name': 'GIT_SERVER_CR_NAME', 'value': context.git.gitServerCrName ],
+                ['name': 'GIT_SERVER_CR_VERSION', 'value': context.git.gitServerCrVersion ],
+                ['name': 'GIT_CREDENTIALS_ID', 'value': context.git.credentialsId ],
+                ['name': 'REPOSITORY_PATH', 'value': context.job.getParameterValue('REPOSITORY_PATH')],
+        ])
+
+        println("2 context.job.triggerJobParameters - ${context.job.triggerJobParametersTest}")
 
         context.job.stages.each() { stage ->
             if (stage instanceof ArrayList) {
