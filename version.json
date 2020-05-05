@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD   (52c48d [EPMDEDP-5029] Fix GitLab display branch on CodeReview)
   "edp-library-pipelines": "2.5.0"
 }
+=======
+  "edp-library-pipelines": "2.3.6-alpha"
+}
+>>>>>>> CHANGE (d17511 [EPMDEDP-5068] Add capability to set trigger job parameters )
