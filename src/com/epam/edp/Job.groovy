@@ -63,6 +63,10 @@ class Job {
     def manualApproveStageTimeout
     def autodeployTimeout
     def autodeployLatestVersions
+    def triggerJobName
+    def triggerJobWait
+    def triggerJobPropogate
+    def triggerJobParameters
 
     Job(type, platform, script) {
         this.type = type
@@ -86,6 +90,10 @@ class Job {
         this.adminConsoleUrl = platform.getJsonPathValue("edpcomponent", "edp-admin-console", ".spec.url")
         this.codebasesList = getCodebaseFromAdminConsole()
         this.buildUser = getBuildUser()
+        this.triggerJobName = getParameterValue("TRIGGER_JOB_NAME")
+        this.triggerJobWait = getParameterValue("TRIGGER_JOB_WAIT", false)
+        this.triggerJobPropogate = getParameterValue("TRIGGER_JOB_PROPOGATE", false)
+        this.triggerJobParameters = getTriggerJobParameters()
 
         def stagesConfig = getParameterValue("STAGES")
         if (!stagesConfig?.trim())
@@ -440,5 +448,26 @@ class Job {
         return new String(platform.getJsonPathValue("secret", name, ".data.\\\\${field}").decodeBase64())
     }
 
+    def getTriggerJobParameters() {
+        def resultParameters = []
+        def triggerJobParameter = getParameterValue("TRIGGER_JOB_PARAMETER")
+        if (!triggerJobParameter)
+            return resultParameters
 
+        def parsedTriggerJobParameter = new JsonSlurperClassic().parseText(getParameterValue("TRIGGER_JOB_PARAMETER"))
+        for (param in parsedTriggerJobParameter) {
+            resultParameters.push(script.string(name: param.name, value: param.value))
+        }
+        return resultParameters
+    }
+
+    @NonCPS
+    def setTriggerJobParameters(parameters) {
+        for (param in parameters) {
+            script.print("param - ${param}")
+            if (param)
+                this.triggerJobParameters.push(script.string(name: param.name, value: param.value))
+        }
+        script.println("1.5 this.triggerJobParameters - ${this.triggerJobParameters}")
+    }
 }
