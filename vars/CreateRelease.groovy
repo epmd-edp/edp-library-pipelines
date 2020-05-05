@@ -54,9 +54,10 @@ def call() {
         context.workDir = new File("/tmp/${RandomStringUtils.random(10, true, true)}")
         context.workDir.deleteDir()
 
-        context.triggerJobName = "job-provisions/${context.codebase.config.jobProvisioning}"
-        context.triggerJobWait = true
-        context.triggerJobParameters = [
+        context.job.triggerJobName = "job-provisions/${context.codebase.config.jobProvisioning}"
+        context.job.triggerJobWait = true
+        context.job.triggerJobPropogate = true
+        context.job.triggerJobParameters.addAll([
                 string(name: 'PARAM', value: "true"),
                 string(name: 'NAME', value: "${context.codebase.config.name}"),
                 string(name: 'TYPE', value: "${context.codebase.config.type}"),
@@ -66,7 +67,9 @@ def call() {
                 string(name: 'GIT_SERVER_CR_VERSION', value: "${context.git.gitServerCrVersion}"),
                 string(name: 'GIT_CREDENTIALS_ID', value: "${context.git.credentialsId}"),
                 string(name: 'REPOSITORY_PATH', value: "${context.job.getParameterValue("REPOSITORY_PATH")}"),
-        ]
+        ])
+
+        println(context.job.triggerJobParameters)
 
         context.job.stages.each() { stage ->
             if (stage instanceof ArrayList) {
