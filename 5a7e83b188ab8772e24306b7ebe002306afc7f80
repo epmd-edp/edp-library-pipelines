@@ -1,0 +1,7 @@
+Verified+1: CI Jenkins
+Code-Review+2: Alexander Morozov <alexander_morozov@epam.com>
+Submitted-by: Alexander Morozov <alexander_morozov@epam.com>
+Submitted-at: Mon, 01 Jun 2020 08:20:07 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/2702
+Project: edp-library-pipelines
+Branch: refs/heads/release-2.3
