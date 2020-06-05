@@ -18,6 +18,7 @@ import com.epam.edp.JobType
 import com.epam.edp.GitInfo
 import com.epam.edp.Nexus
 import com.epam.edp.Sonar
+import com.epam.edp.Chartmuseum
 import com.epam.edp.platform.PlatformType
 import com.epam.edp.platform.PlatformFactory
 import com.epam.edp.buildtool.BuildToolFactory
