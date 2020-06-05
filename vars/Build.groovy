@@ -18,12 +18,14 @@ import com.epam.edp.JobType
 import com.epam.edp.GitInfo
 import com.epam.edp.Nexus
 import com.epam.edp.Sonar
+import com.epam.edp.Chartmuseum
 import com.epam.edp.platform.PlatformType
 import com.epam.edp.platform.PlatformFactory
 import com.epam.edp.buildtool.BuildToolFactory
 import com.epam.edp.stages.StageFactory
 import org.apache.commons.lang.RandomStringUtils
 
+@NonCPS
 def call() {
     def context = [:]
     node("master") {
@@ -42,6 +44,10 @@ def call() {
 
             context.sonar = new Sonar(context.job, context.platform, this)
             context.sonar.init()
+
+            if (context.platform.checkObjectExists("route", "chartmuseum")) {
+                context.chartmuseum = new Chartmuseum(context.job, context.platform, this)
+            }
 
             context.codebase = new Codebase(context.job, context.git.project, context.platform, this)
             context.codebase.setConfig(context.git.autouser, context.git.host, context.git.sshPort, context.git.project,
