@@ -181,4 +181,8 @@ class Kubernetes implements Platform {
         else
             script.println("[JENKINS][DEBUG] Rollback is not needed current status of ${name} is deployed")
     }
+
+    def runPod(project, image, name, options = "") {
+        script.sh("kubectl -n ${project} run --image=${image} --rm -i -t ${name} ${options}")
+    }
 }
