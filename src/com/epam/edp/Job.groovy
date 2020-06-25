@@ -67,6 +67,11 @@ class Job {
     def triggerJobWait
     def triggerJobPropogate
     def triggerJobParameters = []
+    def imageForSecurityCheck
+    def securityCheckName
+    def optionsForSecurityCheck
+    def rpProject
+    def rpEndpoint
 
     Job(type, platform, script) {
         this.type = type
@@ -93,6 +98,7 @@ class Job {
         this.triggerJobName = getParameterValue("TRIGGER_JOB_NAME")
         this.triggerJobWait = getParameterValue("TRIGGER_JOB_WAIT", false)
         this.triggerJobPropogate = getParameterValue("TRIGGER_JOB_PROPOGATE", false)
+
         setTriggerJobParameter()
 
         def stagesConfig = getParameterValue("STAGES")
@@ -135,6 +141,11 @@ class Job {
         this.manualApproveStageTimeout = getParameterValue("MANUAL_APPROVE_TIMEOUT", "10")
         this.autodeployTimeout = getParameterValue("AUTODEPLOY_TIMEOUT", "5")
         this.autodeployLatestVersions = getParameterValue("AUTODEPLOY_LATEST_VERSIONS", false)
+        this.imageForSecurityCheck = getParameterValue("IMAGE_FOR_SECURITY_CHECK")
+        this.securityCheckName = getParameterValue("SECURITY_CHECK_NAME")
+        this.optionsForSecurityCheck = getParameterValue("OPTIONS_FOR_SECURITY_CHECK")
+        this.rpProject = getParameterValue("REPORT_PORTAL_PROJECT")
+        this.rpEndpoint = getParameterValue("REPORT_PORTAL_URL")
         stageContent.applications.each() { item ->
             stageCodebasesList.add(item.name)
             codebaseBranchList["${item.name}"] = ["branch"  : item.branchName,
