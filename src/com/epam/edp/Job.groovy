@@ -67,6 +67,7 @@ class Job {
     def triggerJobWait
     def triggerJobPropogate
     def triggerJobParameters = []
+    def helmChartPath = ""
 
     Job(type, platform, script) {
         this.type = type
