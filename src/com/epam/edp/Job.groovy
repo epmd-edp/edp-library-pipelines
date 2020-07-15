@@ -67,6 +67,7 @@ class Job {
     def triggerJobWait
     def triggerJobPropogate
     def triggerJobParameters = []
+    def helmVersion = "v3.2.4"
 
     Job(type, platform, script) {
         this.type = type
