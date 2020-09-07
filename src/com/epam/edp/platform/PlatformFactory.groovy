@@ -1,4 +1,4 @@
-/* Copyright 2018 EPAM Systems.
+/* Copyright 2020 EPAM Systems.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -48,4 +48,9 @@ interface Platform {
     def deployCodebase(project, templateName, codebase, imageName, timeout, parametersMap, values)
     def verifyDeployedCodebase(name, project, kind)
     def rollbackDeployedCodebase(name, project, kind)
+    def deployCodebaseHelm(project, templateName, codebase, imageName, timeout, parametersMap, values)
+    def verifyDeployedCodebaseHelm(name, project, kind)
+    def rollbackDeployedCodebaseHelm(name, project, kind)
+    def createFullImageName(registryHost,ciProject,imageName)
+    def addSccToUser(user,scc, project)
 }
