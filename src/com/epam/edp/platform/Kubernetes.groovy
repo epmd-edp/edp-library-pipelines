@@ -1,4 +1,4 @@
-/* Copyright 2018 EPAM Systems.
+/* Copyright 2020 EPAM Systems.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -144,11 +144,15 @@ class Kubernetes implements Platform {
         println("[JENKINS][DEBUG] Security model for kubernetes hasn't defined yet")
     }
 
+    def addSccToUser(user,scc, project) {
+        println("[JENKINS][DEBUG] Security model for kubernetes hasn't defined yet")
+    }
+
     def createConfigMapFromFile(cmName, project, filePath) {
         script.sh("kubectl create configmap ${cmName} -n ${project} --from-file=${filePath} --dry-run -o yaml | kubectl apply -f -")
     }
 
-    def deployCodebase(project, chartPath, codebase, imageName = null, timeout = "300s", parametersMap, values = null) {
+    def deployCodebaseHelm(project, chartPath, codebase, imageName = null, timeout = "300s", parametersMap, values = null) {
         def command = "helm upgrade --force --install ${codebase.name} --wait --timeout=${timeout} --namespace ${project} ${chartPath}"
         if(parametersMap)
             for (param in parametersMap) {
@@ -180,5 +184,9 @@ class Kubernetes implements Platform {
             script.sh("helm -n ${project} rollback ${name} --wait --cleanup-on-fail")
         else
             script.println("[JENKINS][DEBUG] Rollback is not needed current status of ${name} is deployed")
+    }
+
+    def createFullImageName(registryHost,ciProject,imageName) {
+        return "${registryHost}/${imageName}"
     }
 }

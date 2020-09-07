@@ -83,6 +83,10 @@ class Openshift extends Kubernetes {
         script.sh("oc adm policy add-role-to-user admin ${user} -n ${project}")
     }
 
+    def addSccToUser(user,scc, project) {
+        script.sh("oc adm policy add-scc-to-user ${scc} -z ${user} -n ${project}")
+    }
+
     def deployCodebase(project, templateName, codebase, imageName, timeout = null, parametersMap = null, values = null) {
         script.sh("oc -n ${project} process -f ${templateName} " +
                 "-p IMAGE_NAME=${imageName} " +
@@ -100,4 +104,21 @@ class Openshift extends Kubernetes {
     def rollbackDeployedCodebase(name, project, kind) {
         script.sh("oc -n ${project} rollout undo ${kind}/${name}")
     }
+
+    def rollbackDeployedCodebaseHelm(name, project, kind = null) {
+        def releaseStatus = script.sh(
+                script: "helm -n ${project} status ${name} | grep STATUS | awk '{print \$2}'",
+                returnStdout: true
+        ).trim()
+
+        if (releaseStatus != "deployed")
+            script.sh("helm -n ${project} rollback ${name} --wait --cleanup-on-fail")
+        else
+            script.println("[JENKINS][DEBUG] Rollback is not needed current status of ${name} is deployed")
+    }
+
+    def createFullImageName(registryHost,ciProject,imageName) {
+        return "${registryHost}/${ciProject}/${imageName}"
+    }
+
 }
