@@ -74,7 +74,7 @@ class Openshift extends Kubernetes {
     }
 
     def createRoleBinding(user, project) {
-        script.sh("oc adm policy add-role-to-user admin ${user} -n ${project}")
+        script.sh("oc adm policy add-role-to-user admin $1r} -n ${project}")
     }
 
     def deployCodebase(project, templateName, codebase, imageName, timeout = null, parametersMap = null, values = null) {
