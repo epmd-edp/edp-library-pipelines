@@ -93,6 +93,8 @@ class Job {
         this.triggerJobName = getParameterValue("TRIGGER_JOB_NAME")
         this.triggerJobWait = getParameterValue("TRIGGER_JOB_WAIT", false)
         this.triggerJobPropogate = getParameterValue("TRIGGER_JOB_PROPOGATE", false)
+        this.ciProject = getParameterValue("CI_NAMESPACE")
+        script.println("[JENKINS][DEBUG] this.ciProject ${this.ciProject}")
         setTriggerJobParameter()
 
         def stagesConfig = getParameterValue("STAGES")
