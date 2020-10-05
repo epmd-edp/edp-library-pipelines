@@ -35,6 +35,7 @@ class Codebase {
     def isReleaseBranch = false
     def vcsTag = ""
     def isTag = ""
+    def customTag = ""
 
     Codebase(job, name, platform, script) {
         this.job = job
@@ -60,6 +61,10 @@ class Codebase {
 
     def setIStag(isTag) {
         this.isTag = isTag
+    }
+
+    def setCustomTag(customTag) {
+        this.customTag = customTag
     }
 
     def setVersions(branchVersion, currentBuildNumber, version, buildVersion, isReleaseBranch) {
