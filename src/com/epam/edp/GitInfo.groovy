@@ -84,7 +84,7 @@ class GitInfo {
                     this.changeName = job.getParameterValue("ghprbPullId") ? "pr-${this.changeNumber}" : "mr-${this.changeNumber}"
                 break
             case JobType.CREATERELEASE.value:
-                this.branch = this.branch ?: "master"
+                this.branch = this.branch ?: ""
                 break
             case JobType.BUILD.value:
                 this.changeNumber = job.getParameterValue("GERRIT_CHANGE_NUMBER", 0)
