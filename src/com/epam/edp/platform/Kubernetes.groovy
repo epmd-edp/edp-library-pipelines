@@ -195,6 +195,15 @@ class Kubernetes implements Platform {
 
     def deployCodebase(project, templateName, codebase, imageName, timeout = null, parametersMap = null, values = null) {
         println("[JENKINS][DEBUG] Use deployCodebaseHelm for Kubernetes")
+        deployCodebaseHelm(
+            project,
+            templateName,
+            codebase,
+            imageName,
+            timeout,
+            parametersMap,
+            values
+        )
     }
 
     def verifyDeployedCodebase(name, project, kind) {
