@@ -1,0 +1,7 @@
+Verified+1: CI Jenkins
+Code-Review+2: Антон Таряник <anton.taryanik@test.com>
+Submitted-by: Антон Таряник <anton.taryanik@test.com>
+Submitted-at: Tue, 22 Dec 2020 10:31:52 +0000
+Reviewed-on: https://gerrit-oc-green-edp-cicd.delivery.aws.main.edp.projects.epam.com/c/edp-library-pipelines/+/6612
+Project: edp-library-pipelines
+Branch: refs/heads/master
