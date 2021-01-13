@@ -133,6 +133,7 @@ class Job {
         this.stageWithoutPrefixName = "${this.pipelineName}-${stageName}"
         this.deployProject = "${this.edpName}-${this.pipelineName}-${stageName}"
         this.codebasesList = getCodebaseFromAdminConsole()
+	script.println("[JENKINS][DEBUG] Job Codebase List ${this.codebasesList}")    
         this.ciProject = getParameterValue("CI_NAMESPACE")
         this.deployTimeout = getParameterValue("DEPLOY_TIMEOUT", "300s")
         this.manualApproveStageTimeout = getParameterValue("MANUAL_APPROVE_TIMEOUT", "10")
