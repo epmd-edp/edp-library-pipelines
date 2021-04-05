@@ -1,3 +1,6 @@
+|![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Warning.svg/156px-Warning.svg.png) | This project is moved to [https://github.com/epam/edp-jenkins-operator](https://github.com/epam/edp-jenkins-operator)
+|---|---|
+
 # EDP Library Pipelines
 
 EDP Library Pipelines repository - is a repository located in Git that stores all pipelines as a code. The main 
